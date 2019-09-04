@@ -1,0 +1,47 @@
+function saveData() {
+
+var name = document.getElementById("name").value;
+var email = document.getElementById("email").value;
+var phone = document.getElementById("phone").value;
+var pwd = document.getElementById("pwd").value;
+
+var obj= {"data": [{"name":name, "email":email, "phone": phone, "pwd": pwd}]};
+
+  if (typeof(Storage) !== "undefined") {
+    if (localStorage.myObj) {
+	
+	obj = JSON.parse(localStorage.myObj);
+	
+	obj['data'].push({"name":name,"email":email, "phone": phone, "pwd": pwd});
+console.log(JSON.stringify(obj));
+localStorage.myObj=JSON.stringify(obj);
+      
+    } else {
+      localStorage.myObj = JSON.stringify(obj);
+    }
+    
+  } else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+  }
+}
+
+function checkData(){
+	var name1 = document.getElementById("name").value;
+	var pwd1 = document.getElementById("pwd").value;
+data = JSON.parse(localStorage.myObj);
+json = data['data'];
+console.log(json.length);
+	for(var i = 0; i < json.length; i++) {
+    var name = json[i].name;
+var pwd = json[i].pwd;
+    console.log(name);
+
+if(name == name1 && pwd == pwd1){
+console.log("success!!");
+break;
+
+} else {
+console.log("fail!!");
+}
+}
+}
